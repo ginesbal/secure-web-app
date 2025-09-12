@@ -1,0 +1,48 @@
+{
+    "name": "secure-web-app",
+    "version": "1.0.0",
+    "description": "Web Application Security Demonstration Portfolio Project",
+    "private": true,
+    "scripts": {
+        "setup": "node setup.js",
+        "install:all": "npm install && cd client && npm install && cd ../server && npm install",
+        "dev": "concurrently \"npm run server:dev\" \"npm run client:dev\"",
+        "client:dev": "cd client && npm run dev",
+        "server:dev": "cd server && npm run dev",
+        "build": "cd client && npm run build",
+        "start": "cd server && npm start",
+        "test": "npm run test:client && npm run test:server",
+        "test:client": "cd client && npm test",
+        "test:server": "cd server && npm test",
+        "clean": "rm -rf node_modules client/node_modules server/node_modules database/*.db",
+        "reset": "npm run clean && npm run setup",
+        "docker:build": "docker build -t security-demo .",
+        "docker:run": "docker-compose up -d",
+        "docker:stop": "docker-compose down"
+    },
+    "keywords": [
+        "security",
+        "web-security",
+        "portfolio",
+        "react",
+        "express",
+        "jwt",
+        "sqlite",
+        "demonstration",
+        "vulnerabilities",
+        "owasp"
+    ],
+    "author": "Your Name",
+    "license": "MIT",
+    "devDependencies": {
+        "concurrently": "^8.2.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/yourusername/secure-web-app.git"
+    },
+    "engines": {
+        "node": ">=16.0.0",
+        "npm": ">=7.0.0"
+    }
+}

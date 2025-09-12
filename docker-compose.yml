@@ -1,0 +1,53 @@
+# =====================================
+# FILE: docker-compose.yml (root directory)
+# =====================================
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: security-demo-app
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+      - JWT_SECRET=${JWT_SECRET}
+      - JWT_REFRESH_SECRET=${JWT_REFRESH_SECRET}
+      - DATABASE_PATH=/app/data/security_demo.db
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3001/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - security-net
+
+  nginx:
+    image: nginx:alpine
+    container_name: security-demo-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/ssl:/etc/nginx/ssl
+      - ./client/dist:/usr/share/nginx/html
+    depends_on:
+      - app
+    restart: unless-stopped
+    networks:
+      - security-net
+
+networks:
+  security-net:
+    driver: bridge
+
+volumes:
+  data:
+  logs:

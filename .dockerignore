@@ -1,0 +1,20 @@
+# =====================================
+# FILE: .dockerignore (root directory)
+# =====================================
+node_modules
+*/node_modules
+npm-debug.log
+.git
+.gitignore
+README.md
+.env
+.env.*
+.vscode
+.idea
+coverage
+.nyc_output
+*.md
+*.log
+dist
+build
+.DS_Store
