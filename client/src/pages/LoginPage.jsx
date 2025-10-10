@@ -1,5 +1,3 @@
-// FILE: client/src/pages/LoginPage.jsx
-
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
@@ -32,25 +30,25 @@ function LoginPage({ addAlert }) {
     };
 
     return (
-        <div className="min-h-[80vh] flex items-center justify-center py-12 px-4">
+        <div className="min-h-[80vh] flex items-center justify-center py-12 px-4 bg-gradient-to-br from-papaya_whip-50 to-ash_gray-50">
             <div className="w-full max-w-md animate-fade-in">
-                {/* Header */}
-                <div className="text-center mb-8">
-                    <div className="inline-flex items-center justify-center w-14 h-14 bg-indigo-100 rounded-2xl mb-4">
-                        <svg className="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                {/* Enhanced Header */}
+                <div className="text-center mb-10">
+                    <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-dark_purple-500 to-raspberry-500 rounded-3xl mb-6 shadow-lg">
+                        <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                         </svg>
                     </div>
-                    <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome Back</h1>
-                    <p className="text-gray-600">Sign in to access your dashboard</p>
+                    <h1 className="text-3xl md:text-4xl font-bold text-dark_purple-500 mb-3 text-display">Welcome Back</h1>
+                    <p className="text-gray-600 text-lg">Sign in to access your security dashboard</p>
                 </div>
 
-                {/* Form */}
-                <div className="card">
+                {/* Enhanced Form */}
+                <div className="card-premium shadow-premium">
                     <div className="p-8">
-                        <form onSubmit={handleSubmit} className="space-y-5">
-                            <div>
-                                <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-2">
+                        <form onSubmit={handleSubmit} className="space-y-6">
+                            <div className="input-group">
+                                <label htmlFor="username" className="input-label">
                                     Username
                                 </label>
                                 <input
@@ -65,8 +63,8 @@ function LoginPage({ addAlert }) {
                                 />
                             </div>
 
-                            <div>
-                                <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
+                            <div className="input-group">
+                                <label htmlFor="password" className="input-label">
                                     Password
                                 </label>
                                 <div className="relative">
@@ -76,14 +74,14 @@ function LoginPage({ addAlert }) {
                                         required
                                         value={formData.password}
                                         onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                                        className="input-field pr-10"
+                                        className="input-field pr-12"
                                         placeholder="Enter your password"
                                         disabled={loading}
                                     />
                                     <button
                                         type="button"
                                         onClick={() => setShowPassword(!showPassword)}
-                                        className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                                        className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors p-1"
                                     >
                                         {showPassword ? (
                                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -102,44 +100,67 @@ function LoginPage({ addAlert }) {
                             <button
                                 type="submit"
                                 disabled={loading}
-                                className="w-full btn-primary justify-center"
+                                className="w-full btn-primary text-lg py-4 disabled:opacity-50 disabled:cursor-not-allowed"
                             >
-                                {loading ? 'Signing in...' : 'Sign In'}
+                                {loading ? (
+                                    <span className="flex items-center justify-center gap-3">
+                                        <div className="spinner w-5 h-5"></div>
+                                        Signing In...
+                                    </span>
+                                ) : (
+                                    <span className="flex items-center justify-center gap-2">
+                                        Sign In
+                                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                        </svg>
+                                    </span>
+                                )}
                             </button>
                         </form>
 
-                        <div className="mt-6 text-center">
-                            <p className="text-sm text-gray-600">
-                                Don't have an account?{' '}
-                                <Link to="/register" className="text-indigo-600 hover:text-indigo-500 font-medium">
-                                    Create one
-                                </Link>
+                        <div className="mt-8 pt-6 border-t border-ash_gray-200">
+                            <p className="text-center text-sm text-gray-600 mb-4">
+                                Don't have an account?
                             </p>
+                            <Link
+                                to="/register"
+                                className="w-full btn-secondary text-center block"
+                            >
+                                Create New Account
+                            </Link>
                         </div>
                     </div>
                 </div>
 
-                {/* Demo Accounts */}
-                <div className="mt-6 p-6 bg-gray-50 rounded-2xl">
-                    <p className="text-sm text-gray-600 text-center mb-4">
-                        Quick access with demo accounts
+                {/* Enhanced Demo Accounts */}
+                <div className="mt-8 p-6 bg-gradient-to-br from-papaya_whip-100 to-ash_gray-100 rounded-3xl border border-ash_gray-200">
+                    <p className="text-sm text-dark_purple-600 text-center mb-4 font-semibold text-display">
+                        Quick Demo Access
                     </p>
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="grid grid-cols-2 gap-4">
                         <button
                             type="button"
                             onClick={() => quickLogin('user', 'user123')}
-                            className="p-3 bg-white rounded-lg border border-gray-200 hover:border-indigo-300 hover:bg-indigo-50 transition-all text-sm"
+                            disabled={loading}
+                            className="p-4 bg-white rounded-2xl border border-ash_gray-200 hover:border-ash_gray-300 hover:bg-ash_gray-25 transition-all text-sm shadow-sm hover:shadow-md disabled:opacity-50"
                         >
-                            <span className="block font-medium">Basic User</span>
-                            <span className="text-xs text-gray-500">Limited access</span>
+                            <div className="flex items-center gap-2 mb-1">
+                                <div className="w-3 h-3 bg-ash_gray-500 rounded-full"></div>
+                                <span className="font-semibold text-dark_purple-500">Basic User</span>
+                            </div>
+                            <span className="text-xs text-gray-500">Standard access level</span>
                         </button>
                         <button
                             type="button"
                             onClick={() => quickLogin('admin', 'admin123')}
-                            className="p-3 bg-white rounded-lg border border-gray-200 hover:border-indigo-300 hover:bg-indigo-50 transition-all text-sm"
+                            disabled={loading}
+                            className="p-4 bg-white rounded-2xl border border-raspberry-200 hover:border-raspberry-300 hover:bg-raspberry-25 transition-all text-sm shadow-sm hover:shadow-md disabled:opacity-50"
                         >
-                            <span className="block font-medium">Administrator</span>
-                            <span className="text-xs text-gray-500">Full access</span>
+                            <div className="flex items-center gap-2 mb-1">
+                                <div className="w-3 h-3 bg-raspberry-500 rounded-full"></div>
+                                <span className="font-semibold text-dark_purple-500">Administrator</span>
+                            </div>
+                            <span className="text-xs text-gray-500">Full system access</span>
                         </button>
                     </div>
                 </div>

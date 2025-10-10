@@ -1,6 +1,3 @@
-// =====================================
-// FILE: client/src/components/ProtectedRoute.jsx (REFINED VERSION)
-// =====================================
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 

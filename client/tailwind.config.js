@@ -1,6 +1,3 @@
-// =====================================
-// FILE: client/tailwind.config.js (FINAL VERSION)
-// =====================================
 module.exports = {
     content: [
         "./index.html",
@@ -12,8 +9,79 @@ module.exports = {
             fontFamily: {
                 sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
                 mono: ['Fira Code', 'Monaco', 'Consolas', 'monospace'],
+                display: ['Space Grotesk', 'Inter', 'sans-serif'],
             },
             colors: {
+                // color palette
+                dark_purple: {
+                    DEFAULT: '#331832',
+                    50: '#f3f0f3',
+                    100: '#e3c4e2',
+                    200: '#c889c5',
+                    300: '#aa50a7',
+                    400: '#6f346d',
+                    500: '#331832',
+                    600: '#2a1429',
+                    700: '#1f0f1f',
+                    800: '#150a14',
+                    900: '#0a050a',
+                },
+                raspberry: {
+                    DEFAULT: '#d81e5b',
+                    25: 'rgba(216, 30, 91, 0.25)',
+                    50: '#f9d0de',
+                    100: '#f2a2bd',
+                    200: '#ec739b',
+                    300: '#e6447a',
+                    400: '#d81e5b',
+                    500: '#d81e5b',
+                    600: '#ac1849',
+                    700: '#811237',
+                    800: '#560c25',
+                    900: '#2b0612',
+                },
+                vermilion: {
+                    DEFAULT: '#f0544f',
+                    50: '#fcdddc',
+                    100: '#f9bcba',
+                    200: '#f69a97',
+                    300: '#f37874',
+                    400: '#f0544f',
+                    500: '#f0544f',
+                    600: '#eb1d16',
+                    700: '#b1150f',
+                    800: '#760e0a',
+                    900: '#3b0705',
+                },
+                ash_gray: {
+                    DEFAULT: '#c6d8d3',
+                    25: 'rgba(198, 216, 211, 0.25)',
+                    50: '#f3f7f6',
+                    100: '#e8efed',
+                    200: '#dce7e4',
+                    300: '#d1e0db',
+                    400: '#c6d8d3',
+                    500: '#c6d8d3',
+                    600: '#94b6ad',
+                    700: '#649386',
+                    800: '#436259',
+                    900: '#21312d',
+                },
+                papaya_whip: {
+                    DEFAULT: '#fdf0d5',
+                    25: 'rgba(253, 240, 213, 0.25)',
+                    50: '#fffcf6',
+                    100: '#fef9ed',
+                    200: '#fef5e5',
+                    300: '#fdf2dc',
+                    400: '#fdf0d5',
+                    500: '#fdf0d5',
+                    600: '#f9cf7b',
+                    700: '#f5ae22',
+                    800: '#b17908',
+                    900: '#593c04',
+                },
+                // Updated neutral grays to work with new palette
                 gray: {
                     50: '#fafafa',
                     100: '#f4f4f5',

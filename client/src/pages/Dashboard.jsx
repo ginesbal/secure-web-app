@@ -190,9 +190,9 @@ function Dashboard({ addAlert }) {
                                         activityLog.slice(0, 10).map((activity, i) => (
                                             <div key={i} className="flex items-start gap-3 p-3 hover:bg-gray-50 rounded-lg transition-colors">
                                                 <div className={`mt-1 w-2 h-2 rounded-full flex-shrink-0 ${activity.status === 'success' ? 'bg-green-500' :
-                                                        activity.status === 'failed' ? 'bg-red-500' :
-                                                            activity.status === 'blocked' ? 'bg-amber-500' :
-                                                                'bg-blue-500'
+                                                    activity.status === 'failed' ? 'bg-red-500' :
+                                                        activity.status === 'blocked' ? 'bg-amber-500' :
+                                                            'bg-blue-500'
                                                     }`} />
                                                 <div className="flex-1">
                                                     <p className="text-sm font-medium text-gray-900">
@@ -208,9 +208,9 @@ function Dashboard({ addAlert }) {
                                                     </p>
                                                 </div>
                                                 <span className={`text-xs px-2 py-1 rounded-full ${activity.status === 'success' ? 'bg-green-100 text-green-700' :
-                                                        activity.status === 'failed' ? 'bg-red-100 text-red-700' :
-                                                            activity.status === 'blocked' ? 'bg-amber-100 text-amber-700' :
-                                                                'bg-blue-100 text-blue-700'
+                                                    activity.status === 'failed' ? 'bg-red-100 text-red-700' :
+                                                        activity.status === 'blocked' ? 'bg-amber-100 text-amber-700' :
+                                                            'bg-blue-100 text-blue-700'
                                                     }`}>
                                                     {activity.status}
                                                 </span>

@@ -1,7 +1,3 @@
-// =====================================
-// FILE: client/src/components/SecurityAlert.jsx (SIMPLIFIED VERSION)
-// =====================================
-
 function SecurityAlert({ message, type, onClose }) {
     const icons = {
         success: (

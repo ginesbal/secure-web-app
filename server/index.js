@@ -15,10 +15,8 @@ const dotenv = require('dotenv');
 const swaggerUi = require('swagger-ui-express');
 const YAML = require('yamljs');
 
-// Load environment variables
-dotenv.config({ path: path.join(__dirname, '..', '.env') });
+require('dotenv').config();
 
-// Initialize Express app
 const app = express();
 const PORT = process.env.PORT || 3001;
 
@@ -201,7 +199,7 @@ app.use((req, res, next) => {
 //     if (req.body) {
 //         // Only sanitize fields that will be displayed as HTML
 //         const fieldsToSanitize = ['description', 'comment', 'message', 'title', 'bio'];
-        
+
 //         Object.keys(req.body).forEach(key => {
 //             if (fieldsToSanitize.includes(key) && typeof req.body[key] === 'string') {
 //                 // Remove dangerous HTML but keep text content
@@ -229,18 +227,18 @@ app.use('/api/demo', demoRoutes);
 const generateCSRFToken = async (userId) => {
     const token = crypto.randomBytes(32).toString('hex');
     const expiresAt = new Date(Date.now() + 3600000); // 1 hour
-    
+
     await db.run(
         'INSERT INTO csrf_tokens (token, user_id, expires_at) VALUES (?, ?, ?)',
         [token, userId, expiresAt]
     );
-    
+
     return token;
 };
 
 const validateCSRFToken = async (token, userId) => {
     if (!token) return false;
-    
+
     const result = await db.get(
         'SELECT * FROM csrf_tokens WHERE token = ? AND user_id = ? AND expires_at > datetime("now")',
         [token, userId]
@@ -260,10 +258,10 @@ const authenticateToken = async (req, res, next) => {
     try {
         const decoded = jwt.verify(token, JWT_SECRET);
         req.user = decoded;
-        
+
         // Log activity
         await logActivity(decoded.id, 'API Access', 'success', req.ip);
-        
+
         next();
     } catch (error) {
         await logActivity(null, 'Invalid token attempt', 'failed', req.ip);
@@ -284,7 +282,7 @@ const authenticateWithCSRF = async (req, res, next) => {
     try {
         const decoded = jwt.verify(token, JWT_SECRET);
         req.user = decoded;
-        
+
         // For state-changing operations, validate CSRF token
         if (['POST', 'PUT', 'DELETE', 'PATCH'].includes(req.method)) {
             const validCSRF = await validateCSRFToken(csrfToken, decoded.id);
@@ -293,7 +291,7 @@ const authenticateWithCSRF = async (req, res, next) => {
                 return res.status(403).json({ error: 'Invalid CSRF token' });
             }
         }
-        
+
         await logActivity(decoded.id, 'API Access', 'success', req.ip);
         next();
     } catch (error) {
@@ -395,7 +393,7 @@ app.post('/api/auth/register', sanitizeInput, async (req, res) => {
 
         await logActivity(result.lastID, 'User registered', 'success', req.ip);
 
-        res.status(201).json({ 
+        res.status(201).json({
             message: 'Registration successful. Please verify your email.',
             verificationToken // In production, send this via email
         });
@@ -517,7 +515,7 @@ app.post('/api/auth/refresh', async (req, res) => {
         }
 
         const decoded = jwt.verify(refreshToken, JWT_REFRESH_SECRET);
-        
+
         // Check if session exists
         const session = await db.get(
             'SELECT * FROM sessions WHERE refresh_token = ? AND user_id = ?',
@@ -642,7 +640,7 @@ app.get('/api/stats', authenticateToken, async (req, res) => {
 // These are intentionally vulnerable for demonstration purposes
 app.post('/api/demo/xss', async (req, res) => {
     const { input, protection } = req.body;
-    
+
     let result = {
         original: input,
         processed: input,
@@ -671,7 +669,7 @@ app.post('/api/demo/xss', async (req, res) => {
 
 app.post('/api/demo/sql', async (req, res) => {
     const { input, protection } = req.body;
-    
+
     let result = {
         query: '',
         vulnerable: false,
@@ -685,7 +683,7 @@ app.post('/api/demo/sql', async (req, res) => {
     } else {
         // Vulnerable concatenated query
         result.query = `SELECT * FROM users WHERE username = '${input}'`;
-        
+
         // Check for SQL injection patterns
         const injectionPatterns = [
             /('|")\s*OR\s*('|")1('|")=('|")1/gi,
@@ -693,7 +691,7 @@ app.post('/api/demo/sql', async (req, res) => {
             /UNION\s+SELECT/gi,
             /--$/
         ];
-        
+
         for (let pattern of injectionPatterns) {
             if (pattern.test(input)) {
                 result.vulnerable = true;
@@ -709,7 +707,7 @@ app.post('/api/demo/sql', async (req, res) => {
 
 app.post('/api/demo/csrf', authenticateToken, async (req, res) => {
     const { csrfToken, protection } = req.body;
-    
+
     let result = {
         vulnerable: false,
         message: 'CSRF token validated successfully'
@@ -736,7 +734,7 @@ app.post('/api/demo/csrf', authenticateToken, async (req, res) => {
 
 app.post('/api/demo/path-traversal', async (req, res) => {
     const { path, protection } = req.body;
-    
+
     let result = {
         requestedPath: path,
         vulnerable: false,
@@ -772,14 +770,14 @@ if (NODE_ENV === 'production') {
 // Error handling middleware
 app.use((err, req, res, next) => {
     console.error('Error:', err);
-    
+
     // Log error as security event if it looks suspicious
     if (err.message && (err.message.includes('injection') || err.message.includes('attack'))) {
         logSecurityEvent('ERROR', 'medium', err.message, req.ip, req.user?.id);
     }
-    
-    res.status(500).json({ 
-        error: NODE_ENV === 'production' ? 'Internal server error' : err.message 
+
+    res.status(500).json({
+        error: NODE_ENV === 'production' ? 'Internal server error' : err.message
     });
 });
 
@@ -792,7 +790,7 @@ app.use((req, res) => {
 async function startServer() {
     try {
         await initializeDatabase();
-        
+
         app.listen(PORT, () => {
             console.log(`🚀 Security Demo API running on port ${PORT}`);
             console.log(`📊 Environment: ${NODE_ENV}`);

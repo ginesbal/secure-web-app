@@ -1,4 +1,3 @@
-// FILE: client/src/pages/AdminPanel.jsx
 import { useEffect, useState } from 'react';
 import { securityAPI, userAPI } from '../services/api';
 
@@ -60,8 +59,8 @@ function AdminPanel() {
                 <button
                     onClick={() => setActiveTab('users')}
                     className={`pb-2 px-4 font-medium transition-colors ${activeTab === 'users'
-                            ? 'text-blue-400 border-b-2 border-blue-400'
-                            : 'text-gray-400 hover:text-white'
+                        ? 'text-blue-400 border-b-2 border-blue-400'
+                        : 'text-gray-400 hover:text-white'
                         }`}
                 >
                     Users ({users.length})
@@ -69,8 +68,8 @@ function AdminPanel() {
                 <button
                     onClick={() => setActiveTab('security')}
                     className={`pb-2 px-4 font-medium transition-colors ${activeTab === 'security'
-                            ? 'text-blue-400 border-b-2 border-blue-400'
-                            : 'text-gray-400 hover:text-white'
+                        ? 'text-blue-400 border-b-2 border-blue-400'
+                        : 'text-gray-400 hover:text-white'
                         }`}
                 >
                     Security Events ({securityEvents.length})
@@ -118,8 +117,8 @@ function AdminPanel() {
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap">
                                             <span className={`px-2 py-1 text-xs rounded-full font-bold ${user.role === 'Admin' ? 'bg-red-600' :
-                                                    user.role === 'Moderator' ? 'bg-purple-600' :
-                                                        user.role === 'User' ? 'bg-blue-600' : 'bg-gray-600'
+                                                user.role === 'Moderator' ? 'bg-purple-600' :
+                                                    user.role === 'User' ? 'bg-blue-600' : 'bg-gray-600'
                                                 }`}>
                                                 {user.role}
                                             </span>
