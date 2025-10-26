@@ -159,49 +159,53 @@ function AttackSimulatorEnhanced({ type, protection, onExecute }) {
                 <div className="flex items-start justify-between mb-4">
                     <div className="flex-1">
                         <div className="flex items-center gap-3 mb-2">
-                            <h3 className="text-lg font-semibold text-gray-900">{attack.title}</h3>
+                            <h3 className="text-lg font-semibold text-[rgb(var(--color-text))]">{attack.title}</h3>
                             <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                                attack.severity === 'Critical' ? 'bg-red-100 text-red-700' :
-                                attack.severity === 'High' ? 'bg-orange-100 text-orange-700' :
-                                'bg-yellow-100 text-yellow-700'
+                                attack.severity === 'Critical'
+                                    ? 'bg-[rgb(var(--color-warning))]/20 text-[rgb(var(--color-warning))]'
+                                    : attack.severity === 'High'
+                                    ? 'bg-[rgb(var(--color-accent))]/20 text-[rgb(var(--color-accent))]'
+                                    : 'bg-yellow-100 text-yellow-700'
                             }`}>
                                 {attack.severity}
                             </span>
                         </div>
-                        <p className="text-sm text-gray-600">{attack.description}</p>
+                        <p className="text-sm text-[rgb(var(--color-text-muted))]">{attack.description}</p>
                     </div>
                     <div className={`px-3 py-1 rounded-full text-xs font-medium ${
-                        protection ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
+                        protection
+                            ? 'bg-[rgb(var(--color-success))]/20 text-[rgb(var(--color-success))]'
+                            : 'bg-[rgb(var(--color-warning))]/20 text-[rgb(var(--color-warning))]'
                     }`}>
                         {protection ? 'Protected' : 'Vulnerable'}
                     </div>
                 </div>
 
                 {/* What Actually Happens */}
-                <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
-                    <div className="text-xs font-semibold text-blue-800 mb-1">What Actually Happens</div>
-                    <p className="text-xs text-blue-700">{attack.whatActuallyHappens}</p>
+                <div className="mb-4 p-3 bg-[rgb(var(--color-surface))] border border-[rgb(var(--color-accent))]/30 rounded-lg">
+                    <div className="text-xs font-semibold text-[rgb(var(--color-accent))] mb-1">What Actually Happens</div>
+                    <p className="text-xs text-[rgb(var(--color-text))]">{attack.whatActuallyHappens}</p>
                 </div>
 
                 {/* Technical Details Toggle */}
                 <button
                     onClick={() => setShowDetails(!showDetails)}
-                    className="text-sm text-indigo-600 hover:text-indigo-500 mb-4"
+                    className="text-sm text-[rgb(var(--color-accent))] hover:text-[rgb(var(--color-primary))] mb-4 transition-colors"
                 >
                     {showDetails ? 'Hide' : 'Show'} Technical Details →
                 </button>
 
                 {showDetails && (
-                    <div className="mb-4 p-3 bg-gray-50 rounded-lg">
-                        <p className="text-xs text-gray-600">
-                            <strong>Impact:</strong> {attack.impact}
+                    <div className="mb-4 p-3 bg-[rgb(var(--color-surface))] rounded-lg">
+                        <p className="text-xs text-[rgb(var(--color-text-muted))]">
+                            <strong className="text-[rgb(var(--color-text))]">Impact:</strong> {attack.impact}
                         </p>
                     </div>
                 )}
 
                 {/* Payload Selection */}
                 <div className="space-y-2 mb-4">
-                    <label className="block text-sm font-medium text-gray-700">
+                    <label className="block text-sm font-medium text-[rgb(var(--color-text))]">
                         Select Attack Payload:
                     </label>
                     {attack.payloads.map((payload, index) => (
@@ -210,19 +214,19 @@ function AttackSimulatorEnhanced({ type, protection, onExecute }) {
                             onClick={() => setSelectedPayload(payload.code)}
                             className={`w-full text-left p-3 rounded-lg border transition-all ${
                                 selectedPayload === payload.code
-                                    ? 'border-indigo-500 bg-indigo-50'
-                                    : 'border-gray-200 hover:border-gray-300 bg-white'
+                                    ? 'border-[rgb(var(--color-accent))] bg-[rgb(var(--color-accent))]/5'
+                                    : 'border-gray-200 hover:border-[rgb(var(--color-accent))]/50 bg-white'
                             }`}
                         >
-                            <div className="font-medium text-sm">{payload.name}</div>
-                            <code className="text-xs bg-gray-100 px-2 py-1 rounded mt-1 inline-block font-mono break-all">
+                            <div className="font-medium text-sm text-[rgb(var(--color-text))]">{payload.name}</div>
+                            <code className="text-xs bg-[rgb(var(--color-surface))] px-2 py-1 rounded mt-1 inline-block font-mono break-all">
                                 {payload.code}
                             </code>
-                            <div className="text-xs text-gray-600 mt-1">
+                            <div className="text-xs text-[rgb(var(--color-text-muted))] mt-1">
                                 <span className="font-semibold">Risk:</span> {payload.risk}
                             </div>
                             {payload.technical && (
-                                <div className="text-xs text-blue-600 mt-1">
+                                <div className="text-xs text-[rgb(var(--color-accent))] mt-1">
                                     <span className="font-semibold">Technical:</span> {payload.technical}
                                 </div>
                             )}
@@ -256,20 +260,28 @@ function AttackSimulatorEnhanced({ type, protection, onExecute }) {
 
                 {/* Result Summary */}
                 {result && !result.error && (
-                    <div className={`mt-4 p-4 rounded-lg ${
-                        result.vulnerable ? 'bg-red-50 border border-red-200' : 'bg-green-50 border border-green-200'
+                    <div className={`mt-4 p-4 rounded-lg border ${
+                        result.vulnerable
+                            ? 'bg-[rgb(var(--color-warning))]/10 border-[rgb(var(--color-warning))]'
+                            : 'bg-[rgb(var(--color-success))]/10 border-[rgb(var(--color-success))]'
                     }`}>
                         <div className="flex items-start gap-3">
-                            <span className="text-xl">
-                                {result.vulnerable ? '🚨' : '✅'}
-                            </span>
+                            <div className={`w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold ${
+                                result.vulnerable
+                                    ? 'bg-[rgb(var(--color-warning))] text-white'
+                                    : 'bg-[rgb(var(--color-success))] text-white'
+                            }`}>
+                                {result.vulnerable ? '!' : '✓'}
+                            </div>
                             <div className="flex-1">
                                 <p className={`font-medium text-sm ${
-                                    result.vulnerable ? 'text-red-700' : 'text-green-700'
+                                    result.vulnerable
+                                        ? 'text-[rgb(var(--color-warning))]'
+                                        : 'text-[rgb(var(--color-success))]'
                                 }`}>
-                                    {result.vulnerable ? 'Attack Succeeded!' : 'Attack Blocked!'}
+                                    {result.vulnerable ? 'Attack Succeeded' : 'Attack Blocked'}
                                 </p>
-                                <p className="text-sm text-gray-600 mt-1">
+                                <p className="text-sm text-[rgb(var(--color-text-muted))] mt-1">
                                     {result.message}
                                 </p>
                             </div>
@@ -279,8 +291,10 @@ function AttackSimulatorEnhanced({ type, protection, onExecute }) {
 
                 {/* Error Display */}
                 {result?.error && (
-                    <div className="mt-4 p-4 bg-gray-50 border border-gray-200 rounded-lg">
-                        <p className="text-sm text-gray-700">⚠️ {result.error}</p>
+                    <div className="mt-4 p-4 bg-[rgb(var(--color-surface))] border border-gray-200 rounded-lg">
+                        <p className="text-sm text-[rgb(var(--color-text))]">
+                            <span className="font-semibold">Error:</span> {result.error}
+                        </p>
                     </div>
                 )}
 
@@ -288,12 +302,12 @@ function AttackSimulatorEnhanced({ type, protection, onExecute }) {
                 {showProof && result && !result.error && (
                     <>
                         <div className="mt-4 flex items-center justify-between">
-                            <div className="text-sm font-semibold text-gray-900">
-                                📊 Technical Proof & Evidence
+                            <div className="text-sm font-semibold text-[rgb(var(--color-text))]">
+                                Technical Proof & Evidence
                             </div>
                             <button
                                 onClick={() => setShowProof(!showProof)}
-                                className="text-xs text-gray-600 hover:text-gray-900"
+                                className="text-xs text-[rgb(var(--color-text-muted))] hover:text-[rgb(var(--color-text))]"
                             >
                                 Hide Proof
                             </button>
@@ -311,9 +325,9 @@ function AttackSimulatorEnhanced({ type, protection, onExecute }) {
                     <div className="mt-4">
                         <button
                             onClick={() => setShowProof(true)}
-                            className="w-full py-2 px-4 bg-blue-50 hover:bg-blue-100 text-blue-700 rounded-lg text-sm font-medium transition-colors"
+                            className="w-full py-2 px-4 bg-[rgb(var(--color-surface))] hover:bg-[rgb(var(--color-accent))]/10 text-[rgb(var(--color-accent))] rounded-lg text-sm font-medium transition-colors border border-[rgb(var(--color-accent))]/30"
                         >
-                            📊 Show Technical Proof & Evidence
+                            Show Technical Proof & Evidence
                         </button>
                     </div>
                 )}

@@ -93,13 +93,13 @@ function LiveExecutionLog({ isExecuting, attackType, payload, onComplete }) {
     }
 
     return (
-        <div className="mt-4 bg-gray-900 rounded-lg p-4 border border-gray-700">
+        <div className="mt-4 bg-gray-900 rounded-lg p-4 border border-[rgb(var(--color-primary))]/30">
             <div className="flex items-center gap-2 mb-3">
                 <div className="text-sm font-semibold text-gray-100">Live Execution Log</div>
                 {isExecuting && (
                     <div className="flex items-center gap-1">
-                        <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-                        <span className="text-xs text-green-400">Running</span>
+                        <span className="w-2 h-2 bg-[rgb(var(--color-success))] rounded-full animate-pulse"></span>
+                        <span className="text-xs text-[rgb(var(--color-success))]">Running</span>
                     </div>
                 )}
             </div>
@@ -115,10 +115,10 @@ function LiveExecutionLog({ isExecuting, attackType, payload, onComplete }) {
                         typeColor = 'text-yellow-400';
                         prefix = '[WARN]';
                     } else if (log.type === 'process') {
-                        typeColor = 'text-blue-400';
+                        typeColor = 'text-[rgb(var(--color-accent))]';
                         prefix = '[PROC]';
                     } else if (log.type === 'result') {
-                        typeColor = 'text-green-400';
+                        typeColor = 'text-[rgb(var(--color-success))]';
                         prefix = '[DONE]';
                     }
 
