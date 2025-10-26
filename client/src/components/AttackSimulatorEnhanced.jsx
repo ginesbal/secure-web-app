@@ -173,13 +173,13 @@ function AttackSimulatorEnhanced({ type, protection, onExecute }) {
                     <div className={`px-3 py-1 rounded-full text-xs font-medium ${
                         protection ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
                     }`}>
-                        {protection ? '🛡️ Protected' : '⚠️ Vulnerable'}
+                        {protection ? 'Protected' : 'Vulnerable'}
                     </div>
                 </div>
 
                 {/* What Actually Happens */}
                 <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
-                    <div className="text-xs font-bold text-blue-800 mb-1">🔍 What Actually Happens:</div>
+                    <div className="text-xs font-semibold text-blue-800 mb-1">What Actually Happens</div>
                     <p className="text-xs text-blue-700">{attack.whatActuallyHappens}</p>
                 </div>
 
@@ -218,10 +218,12 @@ function AttackSimulatorEnhanced({ type, protection, onExecute }) {
                             <code className="text-xs bg-gray-100 px-2 py-1 rounded mt-1 inline-block font-mono break-all">
                                 {payload.code}
                             </code>
-                            <div className="text-xs text-gray-500 mt-1">💡 {payload.risk}</div>
+                            <div className="text-xs text-gray-600 mt-1">
+                                <span className="font-semibold">Risk:</span> {payload.risk}
+                            </div>
                             {payload.technical && (
                                 <div className="text-xs text-blue-600 mt-1">
-                                    🔧 Technical: {payload.technical}
+                                    <span className="font-semibold">Technical:</span> {payload.technical}
                                 </div>
                             )}
                         </button>
